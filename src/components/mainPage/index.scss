@@ -1,0 +1,92 @@
+$border: 1px solid #ffa959;
+$color: #ff7a00;
+$border-radius: 8px;
+$hr-color: rgb(221, 221, 221);
+
+$image-url: 'https://via.placeholder.com/300x200?text=Burger';
+
+html {
+    font-size: 130%;
+    /* Sayfadaki tüm yazıları %10 büyütür */
+
+    .header-navbar {
+        width: 90%;
+        margin: 15px auto !important;
+        padding: 5px 20px;
+        border-radius: $border-radius;
+        height: 5vh;
+    }
+
+    .down-box {
+        height: 90vh;
+    }
+
+    .container-fluid {
+        max-width: 100%;
+
+        .link-hover {
+            color: black;
+            text-decoration: none;
+
+            &:hover {
+                color: $color !important;
+
+                .fas {
+                    color: #ff7a00;
+                }
+            }
+        }
+
+        .fas {
+            color: rgb(105, 105, 105);
+            font-size: 120%;
+        }
+
+        .left-sidebar {
+            position: sticky;
+            border-right: 1px solid $hr-color;
+            border-bottom: 1px solid $hr-color;
+        }
+
+        .content-box {
+            height: 75vh;
+            overflow-y: auto;
+            overflow-y: visible;
+        }
+    }
+
+    .hr {
+        margin: 0px;
+        color: rgb(167, 167, 167);
+    }
+
+    .btn-outline-primary {
+        border: 1px solid $color;
+        color: $color;
+
+        &:hover {
+            background-color: $color;
+            color: #fff !important;
+        }
+
+        &::after {
+            background-color: $color !important;
+        }
+    }
+
+
+
+
+
+
+
+
+    .card-body {
+        background: url(#{$image-url});
+        background-size: cover;       // Resmi kartın tamamına yayar
+        background-position: center;  // Resmi ortalar
+        background-repeat: no-repeat; // Resmin tekrarlamasını engeller
+    }
+
+
+}
