@@ -1,8 +1,16 @@
 import React from 'react';
 import './index.scss';
+import { useNavigate } from 'react-router-dom';
 import logo from '../../assets/logo-white.png';
 
 function Main() {
+    const navigate = useNavigate();
+
+    // Doing this because React yells at me for calling navigate() natively in the onClick event
+    const loginPage = () =>  {
+        navigate("/")
+    }
+
     return (
         <>
             <header>
@@ -20,7 +28,7 @@ function Main() {
                                 style={{ maxWidth: '500px' }}
                             />
                         </form>
-                        <button className="btn color btn-outline-primary m-1 ms-auto" type="button">
+                        <button className="btn color btn-outline-primary m-1 ms-auto" type="button" onClick={loginPage}>
                             Login
                         </button>
                         <button className="btn color btn-outline-primary ms-auto" type="button">
