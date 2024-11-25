@@ -2,7 +2,7 @@ import React from "react";
 import "./index.scss";
 
 
-function Detail({ meal, onClose }) {
+function DetailAdmin({ meal, onClose }) {
   return (
     <div className="meal-details d-flex flex-column flex-lg-row p-4 border rounded bg-light">
       {/* Sol tarafta resim */}
@@ -41,7 +41,7 @@ function Detail({ meal, onClose }) {
           <strong>Menu Average Price:</strong> {meal.price}
         </p>
         <p>
-          <strong>Distance Time:</strong> {meal.distanceTime}
+          <strong>Distance Time:</strong> {meal.price}
         </p>
 
       </div>
@@ -54,13 +54,19 @@ function Detail({ meal, onClose }) {
         Close
       </button>
       <button
+        className="btn btn-danger mt-3 align-self-start align-self-lg-end"
+        onClick={onClose}
+      >
+        Remove
+      </button>
+      <button
         className="btn btn-success mt-3 align-self-start align-self-lg-end"
         onClick={onClose}
       >
-        Get&nbsp;Direction
+        Update
       </button>
     </div>
   );
 }
 
-export default Detail;
+export default DetailAdmin;

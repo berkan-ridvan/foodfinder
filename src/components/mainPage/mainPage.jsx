@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./index.scss";
 import logo from "../../assets/logo-white.png";
 import Detail from "../detailPage/detailPage";
+import DetailAdmin from "../detailAdminPage/detailAdminPage";
 
 function Main() {
     const [selectedMeal, setSelectedMeal] = useState(null);
@@ -29,6 +30,7 @@ function Main() {
             price: "$15.00",
             details: "This is a more detailed description of Meal 1.",
             category: "Breakfast",
+            distanceTime: "20 min",
         },
         {
             id: 2,
@@ -39,6 +41,7 @@ function Main() {
             price: "$12.00",
             details: "This is a more detailed description of Meal 2.",
             category: "Coffee",
+            distanceTime: "20 min",
         },
         {
             id: 3,
@@ -49,6 +52,7 @@ function Main() {
             price: "$10.00",
             details: "This is a more detailed description of Meal 3.",
             category: "Burgers",
+            distanceTime: "20 min",
         },
         {
             id: 4,
@@ -59,36 +63,40 @@ function Main() {
             price: "$20.00",
             details: "This is a more detailed description of Meal 4.",
             category: "Pizza",
+            distanceTime: "20 min",
         },
         {
             id: 5,
             title: "Mexican Restuarant Name 5",
             description: "An exotic meal with unique ingredients.",
-            restaurant: "Restaurant 4",
+            restaurant: "Restaurant 5",
             distance: "4.0 km",
-            price: "$20.00",
+            price: "$31.00",
             details: "This is a more detailed description of Meal 4.",
             category: "Mexican",
+            distanceTime: "20 min",
         },
         {
             id: 6,
             title: "Seafood Restuarant Name 6",
             description: "An exotic meal with unique ingredients.",
-            restaurant: "Restaurant 4",
+            restaurant: "Restaurant 6",
             distance: "4.0 km",
-            price: "$20.00",
+            price: "$40.00",
             details: "This is a more detailed description of Meal 4.",
             category: "Seafood",
+            distanceTime: "20 min",
         },
         {
             id: 7,
             title: "Pizza Restuarant Name 7",
             description: "An exotic meal with unique ingredients.",
-            restaurant: "Restaurant 4",
+            restaurant: "Restaurant 7",
             distance: "4.0 km",
-            price: "$20.00",
+            price: "$19.00",
             details: "This is a more detailed description of Meal 4.",
             category: "Pizza",
+            distanceTime: "20 min",
         },
     ];
 
@@ -249,6 +257,7 @@ function Main() {
                             <div className="content-overlay" onClick={handleCloseDetails}></div>
                             <div className="content-popup">
                                 <Detail meal={selectedMeal} onClose={handleCloseDetails} />
+                                {/* <DetailAdmin meal={selectedMeal} onClose={handleCloseDetails} /> */}
                             </div>
                         </>
                     )}
