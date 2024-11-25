@@ -209,7 +209,9 @@ function Main() {
                     </div>
 
                     <div className="col-12 col-md-8 col-lg-10 bg-white p-3 content-box">
-                        <h5 className="fw-bold">CONTENT</h5>
+                        <h5 className="fw-bold">
+                            {selectedCategory === "All" ? "All Restaurants" : `${selectedCategory} Restaurants`}
+                        </h5>
                         <br />
                         <div className="row g-3 ">
                             {filteredMeals.map((meal) => (
