@@ -1,15 +1,115 @@
-import React from 'react';
-import './index.scss';
-import logo from '../../assets/logo-white.png';
+import React, { useState } from "react";
+import "./index.scss";
+import logo from "../../assets/logo-white.png";
+import Detail from "../detailPage/detailPage";
 
 function Main() {
+    const [selectedMeal, setSelectedMeal] = useState(null);
+    const [selectedCategory, setSelectedCategory] = useState("All"); // all categories
+
+    const handleCardClick = (meal) => {
+        setSelectedMeal(meal); // select restuarant
+    };
+
+    const handleCloseDetails = () => {
+        setSelectedMeal(null); // close popup
+    };
+
+    const handleCategoryClick = (category) => {
+        setSelectedCategory(category); // update selected category
+    };
+
+    const meals = [
+        {
+            id: 1,
+            title: "Breakfast Restaurant Name 1",
+            description: "A delicious meal with great taste.",
+            restaurant: "Restaurant 1",
+            distance: "1.5 km",
+            price: "$15.00",
+            details: "This is a more detailed description of Meal 1.",
+            category: "Breakfast",
+        },
+        {
+            id: 2,
+            title: "Coffee Restaurant Name 2",
+            description: "Another tasty meal for your enjoyment.",
+            restaurant: "Restaurant 2",
+            distance: "2.0 km",
+            price: "$12.00",
+            details: "This is a more detailed description of Meal 2.",
+            category: "Coffee",
+        },
+        {
+            id: 3,
+            title: "Burgers Restaurant Name 3",
+            description: "A classic meal with traditional flavors.",
+            restaurant: "Restaurant 3",
+            distance: "3.0 km",
+            price: "$10.00",
+            details: "This is a more detailed description of Meal 3.",
+            category: "Burgers",
+        },
+        {
+            id: 4,
+            title: "Pizza Restaurant Name 4",
+            description: "An exotic meal with unique ingredients.",
+            restaurant: "Restaurant 4",
+            distance: "4.0 km",
+            price: "$20.00",
+            details: "This is a more detailed description of Meal 4.",
+            category: "Pizza",
+        },
+        {
+            id: 5,
+            title: "Mexican Restuarant Name 5",
+            description: "An exotic meal with unique ingredients.",
+            restaurant: "Restaurant 4",
+            distance: "4.0 km",
+            price: "$20.00",
+            details: "This is a more detailed description of Meal 4.",
+            category: "Mexican",
+        },
+        {
+            id: 6,
+            title: "Seafood Restuarant Name 6",
+            description: "An exotic meal with unique ingredients.",
+            restaurant: "Restaurant 4",
+            distance: "4.0 km",
+            price: "$20.00",
+            details: "This is a more detailed description of Meal 4.",
+            category: "Seafood",
+        },
+        {
+            id: 7,
+            title: "Pizza Restuarant Name 7",
+            description: "An exotic meal with unique ingredients.",
+            restaurant: "Restaurant 4",
+            distance: "4.0 km",
+            price: "$20.00",
+            details: "This is a more detailed description of Meal 4.",
+            category: "Pizza",
+        },
+    ];
+
+    // filter
+    const filteredMeals =
+        selectedCategory === "All"
+            ? meals
+            : meals.filter((meal) => meal.category === selectedCategory);
+
     return (
         <>
             <header>
                 <nav className="navbar navbar-expand-lg ">
                     <div className="container-fluid header-navbar">
                         <a className="navbar-brand" href="#">
-                            <img className="img-fluid" style={{ maxWidth: '250px' }} src={logo} alt="" />
+                            <img
+                                className="img-fluid"
+                                style={{ maxWidth: "250px" }}
+                                src={logo}
+                                alt="Logo"
+                            />
                         </a>
                         <form className="d-flex justify-content-center flex-grow-1">
                             <input
@@ -17,206 +117,139 @@ function Main() {
                                 className="form-control rounded-pill"
                                 placeholder="Search..."
                                 aria-label="Search"
-                                style={{ maxWidth: '500px' }}
+                                style={{ maxWidth: "500px" }}
                             />
                         </form>
-                        <button className="btn color btn-outline-primary m-1 ms-auto" type="button">
+                        <button
+                            className="btn color btn-outline-primary m-1 ms-auto"
+                            type="button"
+                        >
                             Login
                         </button>
-                        <button className="btn color btn-outline-primary ms-auto" type="button">
+                        <button
+                            className="btn color btn-outline-primary m-1 ms-auto"
+                            type="button"
+                        >
                             Sign Up
                         </button>
                     </div>
                 </nav>
             </header>
 
-            <hr className='hr' />
+            <hr className="hr" />
 
-            <div class="container-fluid down-box">
-                <div class="row">
-                    <div class="col-12 col-md-3 col-lg-2 bg-white p-3 left-sidebar">
-                        <ul class="list-unstyled">
-
-                            <li class="mb-3"><a href="#" class="text-dark link-hover"><i class="fas fa-coffee me-2"></i>Breakfast</a></li>
-                            <li class="mb-3"><a href="#" class="text-dark link-hover"><i class="fas fa-mug-hot me-2"></i>Coffee</a></li>
-                            <li class="mb-3"><a href="#" class="text-dark link-hover"><i class="fas fa-hamburger me-2"></i>Burgers</a></li>
-                            <li class="mb-3"><a href="#" class="text-dark link-hover"><i class="fas fa-pepper-hot me-2"></i>Mexican</a></li>
-                            <li class="mb-3"><a href="#" class="text-dark link-hover"><i class="fas fa-pizza-slice me-2"></i>Pizza</a></li>
-                            <li class="mb-3"><a href="#" class="text-dark link-hover"><i class="fas fa-drumstick-bite me-2"></i>Chicken</a></li>
-                            <li class="mb-3"><a href="#" class="text-dark link-hover"><i class="fas fa-ice-cream me-2"></i>Desserts</a></li>
-                            <li class="mb-3"><a href="#" class="text-dark link-hover"><i class="fas fa-bread-slice me-2"></i>Sandwiches</a></li>
-                            <li class="mb-3"><a href="#" class="text-dark link-hover"><i class="fas fa-leaf me-2"></i>Comfort Food</a></li>
-                            <li class="mb-3"><a href="#" class="text-dark link-hover"><i class="fas fa-heartbeat me-2"></i>Healthy</a></li>
-                            <li class="mb-3"><a href="#" class="text-dark link-hover"><i class="fas fa-fish me-2"></i>Seafood</a></li>
-                            <hr />
-                            <li class="mb-3"><a href="#" class="text-dark link-hover"><i class="fas fa-filter me-2"></i>Filter Area</a></li>
-
-
+            <div className="container-fluid down-box">
+                <div className="row g-3 ">
+                    <div className="col-12 col-md-3 col-lg-2 bg-white p-3 left-sidebar">
+                        <ul className="list-unstyled">
+                            <li
+                                className="mb-3"
+                                onClick={() => handleCategoryClick("All")}
+                                style={{ cursor: "pointer" }}
+                            >
+                                <a className="text-dark link-hover">
+                                    <i className="fas fa-list me-2"></i>All
+                                </a>
+                            </li>
+                            <li
+                                className="mb-3"
+                                onClick={() => handleCategoryClick("Breakfast")}
+                                style={{ cursor: "pointer" }}
+                            >
+                                <a className="text-dark link-hover">
+                                    <i className="fas fa-coffee me-2"></i>Breakfast
+                                </a>
+                            </li>
+                            <li
+                                className="mb-3"
+                                onClick={() => handleCategoryClick("Coffee")}
+                                style={{ cursor: "pointer" }}
+                            >
+                                <a className="text-dark link-hover">
+                                    <i className="fas fa-mug-hot me-2"></i>Coffee
+                                </a>
+                            </li>
+                            <li
+                                className="mb-3"
+                                onClick={() => handleCategoryClick("Burgers")}
+                                style={{ cursor: "pointer" }}
+                            >
+                                <a className="text-dark link-hover">
+                                    <i className="fas fa-hamburger me-2"></i>Burgers
+                                </a>
+                            </li>
+                            <li
+                                className="mb-3"
+                                onClick={() => handleCategoryClick("Pizza")}
+                                style={{ cursor: "pointer" }}
+                            >
+                                <a className="text-dark link-hover">
+                                    <i className="fas fa-pizza-slice me-2"></i>Pizza
+                                </a>
+                            </li>
+                            <li
+                                className="mb-3"
+                                onClick={() => handleCategoryClick("Mexican")}
+                                style={{ cursor: "pointer" }}
+                            >
+                                <a className="text-dark link-hover">
+                                    <i className="fas fa-pepper-hot me-2"></i>Mexican
+                                </a>
+                            </li>
+                            <li
+                                className="mb-3"
+                                onClick={() => handleCategoryClick("Seafood")}
+                                style={{ cursor: "pointer" }}
+                            >
+                                <a className="text-dark link-hover">
+                                    <i className="fas fa-fish me-2"></i>Seafood
+                                </a>
+                            </li>
                         </ul>
                     </div>
 
-
-
-                    <div class="col-12 col-md-8 col-lg-10 bg-white p-3 content-box">
-                        <h5 class="fw-bold">CONTENT</h5>
+                    <div className="col-12 col-md-8 col-lg-10 bg-white p-3 content-box">
+                        <h5 className="fw-bold">CONTENT</h5>
                         <br />
-                        <div class="row g-3 mt-3">
-                            
-                            
-                            <div class="col-12 col-md-6 col-lg-3">
-                                <div class="card h-100">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Meal Name</h5>
-                                        <p class="card-text">Description of the meal goes here.</p>
-                                        <p class="card-text"><small class="text-muted">Restaurant: Example Restaurant</small></p>
-                                        <p class="card-text"><small class="text-muted">Distance: 1.5 km</small></p>
-                                        <p class="card-text text-end fw-bold">$15.00</p>
+                        <div className="row g-3 ">
+                            {filteredMeals.map((meal) => (
+                                <div
+                                    key={meal.id}
+                                    className="col-12 col-md-6 col-lg-3"
+                                    onClick={() => handleCardClick(meal)}
+                                >
+                                    <div className="card h-100">
+                                        <div className="card-body">
+                                            <h5 className="card-title">{meal.title}</h5>
+                                            <p className="card-text">{meal.description}</p>
+                                            <p className="card-text">
+                                                <small className="text-muted">
+                                                    Restaurant: {meal.restaurant}
+                                                </small>
+                                            </p>
+                                            <p className="card-text">
+                                                <small className="text-muted">
+                                                    Distance: {meal.distance}
+                                                </small>
+                                            </p>
+                                            <p className="card-text text-end fw-bold">{meal.price}</p>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-
-
-                            <div class="col-12 col-md-6 col-lg-3">
-                                <div class="card h-100">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Meal Name</h5>
-                                        <p class="card-text">Description of the meal goes here.</p>
-                                        <p class="card-text"><small class="text-muted">Restaurant: Example Restaurant</small></p>
-                                        <p class="card-text"><small class="text-muted">Distance: 2 km</small></p>
-                                        <p class="card-text text-end fw-bold">$12.00</p>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="col-12 col-md-6 col-lg-3">
-                                <div class="card h-100">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Meal Name</h5>
-                                        <p class="card-text">Description of the meal goes here.</p>
-                                        <p class="card-text"><small class="text-muted">Restaurant: Example Restaurant</small></p>
-                                        <p class="card-text"><small class="text-muted">Distance: 3 km</small></p>
-                                        <p class="card-text text-end fw-bold">$10.00</p>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="col-12 col-md-6 col-lg-3">
-                                <div class="card h-100">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Meal Name</h5>
-                                        <p class="card-text">Description of the meal goes here.</p>
-                                        <p class="card-text"><small class="text-muted">Restaurant: Example Restaurant</small></p>
-                                        <p class="card-text"><small class="text-muted">Distance: 4 km</small></p>
-                                        <p class="card-text text-end fw-bold">$20.00</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-12 col-md-6 col-lg-3">
-                                <div class="card h-100">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Meal Name</h5>
-                                        <p class="card-text">Description of the meal goes here.</p>
-                                        <p class="card-text"><small class="text-muted">Restaurant: Example Restaurant</small></p>
-                                        <p class="card-text"><small class="text-muted">Distance: 4 km</small></p>
-                                        <p class="card-text text-end fw-bold">$20.00</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-3">
-                                <div class="card h-100">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Meal Name</h5>
-                                        <p class="card-text">Description of the meal goes here.</p>
-                                        <p class="card-text"><small class="text-muted">Restaurant: Example Restaurant</small></p>
-                                        <p class="card-text"><small class="text-muted">Distance: 4 km</small></p>
-                                        <p class="card-text text-end fw-bold">$20.00</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-3">
-                                <div class="card h-100">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Meal Name</h5>
-                                        <p class="card-text">Description of the meal goes here.</p>
-                                        <p class="card-text"><small class="text-muted">Restaurant: Example Restaurant</small></p>
-                                        <p class="card-text"><small class="text-muted">Distance: 4 km</small></p>
-                                        <p class="card-text text-end fw-bold">$20.00</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-3">
-                                <div class="card h-100">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Meal Name</h5>
-                                        <p class="card-text">Description of the meal goes here.</p>
-                                        <p class="card-text"><small class="text-muted">Restaurant: Example Restaurant</small></p>
-                                        <p class="card-text"><small class="text-muted">Distance: 4 km</small></p>
-                                        <p class="card-text text-end fw-bold">$20.00</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-3">
-                                <div class="card h-100">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Meal Name</h5>
-                                        <p class="card-text">Description of the meal goes here.</p>
-                                        <p class="card-text"><small class="text-muted">Restaurant: Example Restaurant</small></p>
-                                        <p class="card-text"><small class="text-muted">Distance: 4 km</small></p>
-                                        <p class="card-text text-end fw-bold">$20.00</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-3">
-                                <div class="card h-100">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Meal Name</h5>
-                                        <p class="card-text">Description of the meal goes here.</p>
-                                        <p class="card-text"><small class="text-muted">Restaurant: Example Restaurant</small></p>
-                                        <p class="card-text"><small class="text-muted">Distance: 4 km</small></p>
-                                        <p class="card-text text-end fw-bold">$20.00</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-3">
-                                <div class="card h-100">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Meal Name</h5>
-                                        <p class="card-text">Description of the meal goes here.</p>
-                                        <p class="card-text"><small class="text-muted">Restaurant: Example Restaurant</small></p>
-                                        <p class="card-text"><small class="text-muted">Distance: 4 km</small></p>
-                                        <p class="card-text text-end fw-bold">$20.00</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-3">
-                                <div class="card h-100">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Meal Name</h5>
-                                        <p class="card-text">Description of the meal goes here.</p>
-                                        <p class="card-text"><small class="text-muted">Restaurant: Example Restaurant</small></p>
-                                        <p class="card-text"><small class="text-muted">Distance: 4 km</small></p>
-                                        <p class="card-text text-end fw-bold">$20.00</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-12 col-md-6 col-lg-3">
-                                <div class="card h-100">
-                                    <div class="card-body">
-                                        <h5 class="card-title">Meal Name</h5>
-                                        <p class="card-text">Description of the meal goes here.</p>
-                                        <p class="card-text"><small class="text-muted">Restaurant: Example Restaurant</small></p>
-                                        <p class="card-text"><small class="text-muted">Distance: 4 km</small></p>
-                                        <p class="card-text text-end fw-bold">$20.00</p>
-                                    </div>
-                                </div>
-                            </div>
-
+                            ))}
                         </div>
-
                     </div>
+                </div>
+
+                <div className="content mt-4">
+                    {selectedMeal && (
+                        <>
+                            <div className="content-overlay" onClick={handleCloseDetails}></div>
+                            <div className="content-popup">
+                                <Detail meal={selectedMeal} onClose={handleCloseDetails} />
+                            </div>
+                        </>
+                    )}
                 </div>
             </div>
         </>

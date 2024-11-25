@@ -74,6 +74,11 @@ html {
     }
 
 
+
+
+
+
+
     .content-popup {
         position: fixed;
         top: 50%;
@@ -81,10 +86,11 @@ html {
         transform: translate(-50%, -50%);
         z-index: 1000;
         background: white;
-        padding: 20px;
+        padding: 10px;
         border-radius: 10px;
         box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-        max-width: 500px;
+        max-width: 1250px;
+        max-height: 90vh;
         width: 100%;
       }
       
@@ -100,11 +106,58 @@ html {
       
 
 
+      .meal-details {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        width: 100%;
+        max-height: 80vh; 
+        overflow-y: auto; 
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+      }
+      .img-info{
+        margin-top: 20px;
+        flex-direction: column;
+        max-width: 40vh; 
+        overflow-y: auto; 
+      }
+      
+      @media (min-width: 768px) {
+        .meal-details {
+          flex-direction: row;
+        }
+      }
+      
+      .meal-image {
+        flex-shrink: 0;
+      }
+      
+      .meal-info {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      
+      button {
+        margin-top: auto;
+      }
+      
+
+
+
+
+
+
+
 
 
 
     .card-body {
-        background-color: #fffcf970 !important;
+        //
     }
 
 
