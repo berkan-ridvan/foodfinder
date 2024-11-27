@@ -25,78 +25,176 @@ function Main() {
             id: 1,
             title: "Breakfast Restaurant Name 1",
             description: "A delicious meal with great taste.",
-            restaurant: "Restaurant 1",
             distance: "1.5 km",
             price: "$15.00",
-            details: "This is a more detailed description of Meal 1.",
             category: "Breakfast",
-            distanceTime: "20 min",
+            address: "1615 sycanore ave Huntsville, TX 77340",
+            type: "Has Michelin Star ⭐⭐⭐",
+            menu: [
+                { item: "Margherita Pizza", price: "$12.00" },
+                { item: "Pepperoni Pizza", price: "$14.00" },
+                { item: "Veggie Supreme", price: "$13.50" },
+                { item: "BBQ Chicken Pizza", price: "$15.00" }
+            ],
+            hours: {
+                monday: "10:00 AM - 10:00 PM",
+                tuesday: "10:00 AM - 10:00 PM",
+                wednesday: "10:00 AM - 10:00 PM",
+                thursday: "10:00 AM - 10:00 PM",
+                friday: "10:00 AM - 11:00 PM",
+                saturday: "10:00 AM - 11:00 PM",
+                sunday: "11:00 AM - 9:00 PM"
+            }
         },
         {
             id: 2,
             title: "Coffee Restaurant Name 2",
             description: "Another tasty meal for your enjoyment.",
-            restaurant: "Restaurant 2",
             distance: "2.0 km",
             price: "$12.00",
-            details: "This is a more detailed description of Meal 2.",
             category: "Coffee",
-            distanceTime: "20 min",
+            address: "1615 sycanore ave Huntsville, TX 77340",
+            type: "Franchise Company",
+            menu: [
+                { item: "Margherita Pizza", price: "$12.00" },
+                { item: "Pepperoni Pizza", price: "$14.00" },
+                { item: "Veggie Supreme", price: "$13.50" },
+                { item: "BBQ Chicken Pizza", price: "$15.00" }
+            ],
+            hours: {
+                monday: "10:00 AM - 10:00 PM",
+                tuesday: "10:00 AM - 10:00 PM",
+                wednesday: "10:00 AM - 10:00 PM",
+                thursday: "10:00 AM - 10:00 PM",
+                friday: "10:00 AM - 11:00 PM",
+                saturday: "10:00 AM - 11:00 PM",
+                sunday: "11:00 AM - 9:00 PM"
+            }
         },
         {
             id: 3,
             title: "Burgers Restaurant Name 3",
             description: "A classic meal with traditional flavors.",
-            restaurant: "Restaurant 3",
             distance: "3.0 km",
             price: "$10.00",
-            details: "This is a more detailed description of Meal 3.",
             category: "Burgers",
-            distanceTime: "20 min",
+            address: "1615 sycanore ave Huntsville, TX 77340",
+            type: "Has Michelin Star ⭐⭐⭐",
+            menu: [
+                { item: "Margherita Pizza", price: "$12.00" },
+                { item: "Pepperoni Pizza", price: "$14.00" },
+                { item: "Veggie Supreme", price: "$13.50" },
+                { item: "BBQ Chicken Pizza", price: "$15.00" }
+            ],
+            hours: {
+                monday: "10:00 AM - 10:00 PM",
+                tuesday: "10:00 AM - 10:00 PM",
+                wednesday: "10:00 AM - 10:00 PM",
+                thursday: "10:00 AM - 10:00 PM",
+                friday: "10:00 AM - 11:00 PM",
+                saturday: "10:00 AM - 11:00 PM",
+                sunday: "11:00 AM - 9:00 PM"
+            }
         },
         {
             id: 4,
             title: "Pizza Restaurant Name 4",
             description: "An exotic meal with unique ingredients.",
-            restaurant: "Restaurant 4",
             distance: "4.0 km",
             price: "$20.00",
-            details: "This is a more detailed description of Meal 4.",
             category: "Pizza",
-            distanceTime: "20 min",
+            address: "1615 sycanore ave Huntsville, TX 77340",
+            type: "Franchise Company",
+            menu: [
+                { item: "Margherita Pizza", price: "$12.00" },
+                { item: "Pepperoni Pizza", price: "$14.00" },
+                { item: "Veggie Supreme", price: "$13.50" },
+                { item: "BBQ Chicken Pizza", price: "$15.00" }
+            ],
+            hours: {
+                monday: "10:00 AM - 10:00 PM",
+                tuesday: "10:00 AM - 10:00 PM",
+                wednesday: "10:00 AM - 10:00 PM",
+                thursday: "10:00 AM - 10:00 PM",
+                friday: "10:00 AM - 11:00 PM",
+                saturday: "10:00 AM - 11:00 PM",
+                sunday: "11:00 AM - 9:00 PM"
+            }
         },
         {
             id: 5,
             title: "Mexican Restuarant Name 5",
             description: "An exotic meal with unique ingredients.",
-            restaurant: "Restaurant 5",
             distance: "4.0 km",
             price: "$31.00",
-            details: "This is a more detailed description of Meal 4.",
             category: "Mexican",
-            distanceTime: "20 min",
+            address: "1615 sycanore ave Huntsville, TX 77340",
+            type: "Has Michelin Star ⭐⭐⭐",
+            menu: [
+                { item: "Margherita Pizza", price: "$12.00" },
+                { item: "Pepperoni Pizza", price: "$14.00" },
+                { item: "Veggie Supreme", price: "$13.50" },
+                { item: "BBQ Chicken Pizza", price: "$15.00" }
+            ],
+            hours: {
+                monday: "10:00 AM - 10:00 PM",
+                tuesday: "10:00 AM - 10:00 PM",
+                wednesday: "10:00 AM - 10:00 PM",
+                thursday: "10:00 AM - 10:00 PM",
+                friday: "10:00 AM - 11:00 PM",
+                saturday: "10:00 AM - 11:00 PM",
+                sunday: "11:00 AM - 9:00 PM"
+            }
         },
         {
             id: 6,
             title: "Seafood Restuarant Name 6",
             description: "An exotic meal with unique ingredients.",
-            restaurant: "Restaurant 6",
             distance: "4.0 km",
             price: "$40.00",
-            details: "This is a more detailed description of Meal 4.",
             category: "Seafood",
-            distanceTime: "20 min",
+            address: "1615 sycanore ave Huntsville, TX 77340",
+            type: "Franchise Company",
+            menu: [
+                { item: "Margherita Pizza", price: "$12.00" },
+                { item: "Pepperoni Pizza", price: "$14.00" },
+                { item: "Veggie Supreme", price: "$13.50" },
+                { item: "BBQ Chicken Pizza", price: "$15.00" }
+            ],
+            hours: {
+                monday: "10:00 AM - 10:00 PM",
+                tuesday: "10:00 AM - 10:00 PM",
+                wednesday: "10:00 AM - 10:00 PM",
+                thursday: "10:00 AM - 10:00 PM",
+                friday: "10:00 AM - 11:00 PM",
+                saturday: "10:00 AM - 11:00 PM",
+                sunday: "11:00 AM - 9:00 PM"
+            }
         },
         {
             id: 7,
             title: "Pizza Restuarant Name 7",
             description: "An exotic meal with unique ingredients.",
-            restaurant: "Restaurant 7",
             distance: "4.0 km",
             price: "$19.00",
-            details: "This is a more detailed description of Meal 4.",
             category: "Pizza",
-            distanceTime: "20 min",
+            address: "1615 sycanore ave Huntsville, TX 77340",
+            type: "Franchise Company",
+            menu: [
+                { item: "Margherita Pizza", price: "$12.00" },
+                { item: "Pepperoni Pizza", price: "$14.00" },
+                { item: "Veggie Supreme", price: "$13.50" },
+                { item: "BBQ Chicken Pizza", price: "$15.00" }
+            ],
+            hours: {
+                monday: "10:00 AM - 10:00 PM",
+                tuesday: "10:00 AM - 10:00 PM",
+                wednesday: "10:00 AM - 10:00 PM",
+                thursday: "10:00 AM - 10:00 PM",
+                friday: "10:00 AM - 11:00 PM",
+                saturday: "10:00 AM - 11:00 PM",
+                sunday: "11:00 AM - 9:00 PM"
+            }
         },
     ];
 
@@ -123,23 +221,17 @@ function Main() {
                             <input
                                 type="search"
                                 className="form-control rounded-pill"
-                                placeholder="Search..."
-                                aria-label="Search"
-                                style={{ maxWidth: "500px" }}
+                                placeholder=""
+                                style={{ maxWidth: "500px", border: "0px" }}
                             />
                         </form>
                         <button
                             className="btn color btn-outline-primary m-1 ms-auto"
                             type="button"
                         >
-                            Login
+                            Profile
                         </button>
-                        <button
-                            className="btn color btn-outline-primary m-1 ms-auto"
-                            type="button"
-                        >
-                            Sign Up
-                        </button>
+                        
                     </div>
                 </nav>
             </header>
@@ -234,7 +326,7 @@ function Main() {
                                             <p className="card-text">{meal.description}</p>
                                             <p className="card-text">
                                                 <small className="text-muted">
-                                                    Restaurant: {meal.restaurant}
+                                                    Restaurant: {meal.type}
                                                 </small>
                                             </p>
                                             <p className="card-text">
