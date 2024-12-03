@@ -3,20 +3,25 @@ import { Hono } from 'hono'
 import { cors } from 'hono/cors';
 import { serve } from '@hono/node-server'
 
+// Constants
 const app = new Hono()
-const con = mysql.createConnection({
+
+const establishmentsConnection = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "root",
-  database: "AccountInformation"
+  database: "establishments"
 });
+
+// Variables
+let estabs = [];
 
 // Accepts 2 strings as a paramater, returns a boolean
 function attemptLogin(user, pass) {
   return new Promise((resolve, reject) => {
     let userData = undefined
-    con.query(
-      `SELECT username, password FROM information WHERE username = ? and password = ?`,
+    establishmentsConnection.query(
+      `SELECT username, password FROM account WHERE userName = ? and password = ?`,
       [user, pass],
       function(err, result) {
         if (err) {
@@ -24,8 +29,7 @@ function attemptLogin(user, pass) {
           reject(err);
           return;
         }
-
-        console.log(result)
+        
         if (result.length == 0) {
           console.log("No matching user found");
           resolve(null);
@@ -43,9 +47,39 @@ function attemptLogin(user, pass) {
   })
 }
 
-con.connect(function(err) {
+establishmentsConnection.connect(function(err) {
   if (err) throw err;
-  console.log('Connected to the database!');
+  console.log("Connected to the Establishments Database!")
+  establishmentsConnection.query(
+    'SELECT name, category, id, address, distance, hours, menu, priceRange FROM establishment, location WHERE establishment.cert = location.cert',
+    function(err, result) {
+      if (err) {
+        console.log("got nothing")
+        return;
+      }
+
+      // console.log(result)
+      if (result.length == 0) {
+        console.log("No matching user found");
+        return;
+      }
+
+      for (let i = 0; i < result.length; i++) {
+        let e = result[i];
+        estabs[i] = {
+          id: e.id,
+          title: e.name,
+          description: "some basic description",
+          restaurant: "some restaurant",
+          distance: `${e.distance} km`,
+          price: e.priceRange,
+          details: "this is a more detailed description than the previous",
+          category: e.category,
+        }
+      }
+    }
+  )
+
 });
 
 app.use('/*', cors())
@@ -68,7 +102,7 @@ app.post('/posts/loginUser', async (c) => {
 
 // Grabs the menus for the users when they hit the landing page
 let debounce = false
-app.get('/main', (c) => {
+app.get('/api/getEstablishments', (c) => {
   if (!debounce) {
     // Debounce for 2 seconds (measured in ms)
     debounce = true
@@ -76,8 +110,8 @@ app.get('/main', (c) => {
       debounce = false
     },  2000)
 
-    // Fetch data and return to client
-    return c.json({result: true})
+    // Return our establishment data to the client
+    return c.json({result: true, establishments: estabs})
   }
   return c.json({result: false})
 })

@@ -28,28 +28,7 @@ function Login() {
             }
         });
     };
-
-    // Fetch menu items to display on landing page
-    // console.log("Sending request")
-    // fetch(`${url}/main`).then(response => response.json()).then(data => {
-    //     if (data.result) {
-    //         console.log("Got data back!")
-    //     }
-    // }).catch(err => {
-    //     console.error(err)
-    // })
-
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-
-
-    //     if (username === '1' && password === '1') {
-    //         navigate('/main');
-    //     } else {
-    //         setError('Wrong Password or Username!');
-    //     }
-    // };
-
+    
     return (
         <div className="container d-flex justify-content-center align-items-center min-vh-100">
             <div className="card login-signup p-4 shadow text-center">

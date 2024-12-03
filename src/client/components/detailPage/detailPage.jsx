@@ -25,11 +25,11 @@ function Detail({ meal, onClose }) {
             <strong>Menu:</strong>
           </p>
           <ul>
-            {meal.menu.map((item, index) => (
+            {/* {meal.menu.map((item, index) => (
               <li key={index}>
                 {item.item} - {item.price}
               </li>
-            ))}
+            ))} */}
           </ul>
           </div>
         </div>
@@ -56,11 +56,11 @@ function Detail({ meal, onClose }) {
             <strong>Hours:</strong>
           </p>
           <ul>
-            {Object.entries(meal.hours).map(([day, time], index) => (
+            {/* {Object.entries(meal.hours).map(([day, time], index) => (
               <li key={index}>
                 <strong>{day.charAt(0).toUpperCase() + day.slice(1)}:</strong> {time}
               </li>
-            ))}
+            ))} */}
           </ul>
           <button
             className="btn btn-success"
