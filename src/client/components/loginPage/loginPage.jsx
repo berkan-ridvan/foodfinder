@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './index.scss';
@@ -8,6 +9,36 @@ function Login() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+
+    /*
+    const loginUser = (e) => {
+        e.preventDefault();
+        fetch(`${url}/posts/loginUser`, {
+            method: "POST",
+            headers: {
+                "ContentType": "application/json"
+            },
+            body: JSON.stringify({user: username, pass: password})
+        }).then(response => response.json()).then(data => {
+            if (data.result) {
+                setUser(data.loginId)
+                navigate('/main')
+            } else {
+                setError("Wrong password or username")
+            }
+        }).catch(err => setError("Failed to login user!"));
+    };
+
+    // Fetch menu items to display on landing page
+    console.log("Sending request")
+    fetch(`${url}/main`).then(response => response.json()).then(data => {
+        if (data.result) {
+            console.log("Got data back!")
+        }
+    }).catch(err => {
+        console.error(err)
+    })
+    */
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -55,5 +86,3 @@ function Login() {
         </div>
     );
 }
-
-export default Login;
