@@ -1,18 +1,16 @@
+
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import logo from '../../assets/logo-white.png';
 import './index.scss';
-
-const url = 'http://localhost:8787'
+import logo from '../../assets/logo-white.png';
 
 function Login() {
     const navigate = useNavigate();
-    const [username, setUsername] = useState(''); // Input from the user in the specified TextFields
-    const [password, setPassword] = useState(''); // Input from the user in the specified TextFields
-    const [user, setUser] = useState('');
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 
-/*
+    /*
     const loginUser = (e) => {
         e.preventDefault();
         fetch(`${url}/posts/loginUser`, {
@@ -40,41 +38,24 @@ function Login() {
     }).catch(err => {
         console.error(err)
     })
-*/
+    */
 
-    const loginUser = (e) => {
+    const handleSubmit = (e) => {
         e.preventDefault();
-        fetch(`${url}/posts/loginUser`, {
-            method: "POST",
-            headers: {
-                "ContentType": "application/json"
-            },
-            body: JSON.stringify({user: username, pass: password})
-        }).then(response => response.json()).then(data => {
-            if (data.result) {
-                setUser(data.loginId)
-                navigate('/main')
-            } else {
-                setError("Wrong password or username")
-            }
-        }).catch(err => setError("Failed to login user!"));
-    };
 
-    // Fetch menu items to display on landing page
-    console.log("Sending request")
-    fetch(`${url}/main`).then(response => response.json()).then(data => {
-        if (data.result) {
-            console.log("Got data back!")
+
+        if (username === '1' && password === '1') {
+            navigate('/main');
+        } else {
+            setError('Wrong Password or Username!');
         }
-    }).catch(err => {
-        console.error(err)
-    })
+    };
 
     return (
         <div className="container d-flex justify-content-center align-items-center min-vh-100">
             <div className="card login-signup p-4 shadow text-center">
                 <img className="img-fluid mb-4" style={{ maxWidth: '250px' }} src={logo} alt="Logo" />
-                <form onSubmit={loginUser}>
+                <form onSubmit={handleSubmit}>
                     <div className="form-group mb-3">
                         <input
                             type="text"
@@ -105,5 +86,3 @@ function Login() {
         </div>
     );
 }
-
-export default Login;
