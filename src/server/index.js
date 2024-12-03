@@ -16,20 +16,27 @@ function attemptLogin(user, pass) {
   return new Promise((resolve, reject) => {
     let userData = undefined
     con.query(
-      `SELECT username, password
-      FROM information
-      WHERE username = '${user}' and password = '${pass}'`,
+      `SELECT username, password FROM information WHERE username = ? and password = ?`,
+      [user, pass],
       function(err, result) {
         if (err) {
+          console.log("got nothing")
           reject(err);
           return;
         }
-        result.forEach(dataPacket => {
-          let data = JSON.parse(JSON.stringify(dataPacket));
-          if (data.username == user & data.password == pass) {
-            userData = data
-          }
-        });
+
+        console.log(result)
+        if (result.length == 0) {
+          console.log("No matching user found");
+          resolve(null);
+          return;
+        }
+
+        const data = result[0];
+        if (data.username == user && data.password == pass) {
+          userData = data;
+        }
+
         resolve(userData);
       }
     )
@@ -51,7 +58,7 @@ app.use('/*', cors())
 app.post('/posts/loginUser', async (c) => {
     const body = await c.req.json()
     let result = await attemptLogin(body.user, body.pass)
-    if (result != undefined) {
+    if (result != null) {
       return c.json({result: true, loginId: body.user})
     } else {
       return c.json({result: false})
