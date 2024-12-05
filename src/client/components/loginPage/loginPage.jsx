@@ -21,10 +21,11 @@ function Login() {
             body: JSON.stringify({user: username, pass: password})
         }).then(response => response.json()).then(data => {
             if (data.result) {
-                setUsername(data.loginId)
-                navigate('/main')
+                setUsername(data.user);
+                let accNumber = data.accNumber;
+                navigate('/main', {state: {accNumber}});
             } else {
-                setError("Wrong password or username")
+                setError("Wrong password or username");
             }
         });
     };

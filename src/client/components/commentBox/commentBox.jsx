@@ -1,21 +1,20 @@
 import React, { useState } from "react";
 
-const CommentBox = () => {
-  const [comments, setComments] = useState([]);
+function CommentBox({accNumber, establishment}) {
+  const url = "http://localhost:8787";
   const [newComment, setNewComment] = useState("");
-  const [name, setName] = useState("");
   const [rating, setRating] = useState(0);
 
   const handleCommentSubmit = (e) => {
     e.preventDefault();
-    if (newComment.trim() !== "" && name.trim() !== "" && rating > 0) {
-      const currentDate = new Date().toLocaleString(); // Get the current date and time
-      setComments([
-        ...comments,
-        { name, comment: newComment, date: currentDate, rating },
-      ]);
+    if (newComment.trim() !== "" && rating > 0) {
+      fetch(`${url}/api/postReview`, {
+        method: "POST",
+        headers: {"ContentType": "application/json"},
+        body: JSON.stringify({id: establishment.id, acc: accNumber, comment: newComment, rating: rating}),
+      }).catch((error) => {console.error("Request failed:", error)});
+      
       setNewComment("");
-      setName("");
       setRating(0);
     }
   };
@@ -25,33 +24,7 @@ const CommentBox = () => {
       <div className="card">
         
         <div className="card-body">
-          <ul className="list-group mb-1">
-            {comments.length > 0 ? (
-              comments.map((item, index) => (
-                <li key={index} className="list-group-item">
-                  <strong>{item.name}</strong> ({item.date}) - <strong>{item.rating}⭐</strong>
-                  <br />
-                  {item.comment}
-                </li>
-              ))
-            ) : (
-              <li className="list-group-item text-muted">No comments yet.</li>
-            )}
-          </ul>
           <form onSubmit={handleCommentSubmit}>
-            <div className="mb-1">
-              <label htmlFor="name" className="form-label">
-                Name
-              </label>
-              <input
-                id="name"
-                className="form-control"
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Enter your name"
-              />
-            </div>
             <div className="mb-1">
               <label htmlFor="comment" className="form-label">
                 Add a Comment

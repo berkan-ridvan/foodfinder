@@ -2,29 +2,33 @@ import React, { useCallback, useEffect, useState } from "react";
 import "./index.scss";
 import logo from "../../assets/logo-white.png";
 import Detail from "../detailPage/detailPage"; // Ensure this is a valid import
+import { useLocation } from "react-router-dom";
 
 function Main() {
     const url = "http://localhost:8787";
-    const [selectedMeal, setSelectedMeal] = useState(null);
+    const [selectedEstablishment, setSelectedEstablishment] = useState(null);
     const [selectedCategory, setSelectedCategory] = useState("American"); // Default category
-    const [meals, setMeals] = useState([]);
-    const [filteredMeals, setFilteredMeals] = useState([]);
+    const [establishments, setEstablishments] = useState([]);
+    const [filteredEstablishments, setFilteredEstablishments] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    const categories = ["All", "Breakfast", "Coffee", "Burgers", "Pizza", "Mexican", "Seafood", "American"];
+    const location = useLocation();
+    const accNumber = location.state?.accNumber;
 
-    // Fetch meals on component load
+    const categories = ["All", "Breakfast", "Coffee", "Burgers", "Pizza", "Mexican", "Seafood", "American", "Bar"];
+
+    // Fetch establishments on component load
     useEffect(() => {
         async function fetchMeals() {
             try {
                 const response = await fetch(`${url}/api/getEstablishments`);
                 const data = await response.json();
                 if (data.result) {
-                    setMeals(data.establishments);
-                    setFilteredMeals(data.establishments);
+                    setEstablishments(data.establishments);
+                    setFilteredEstablishments(data.establishments);
                 }
             } catch (error) {
-                console.error("Error fetching meals:", error);
+                console.error("Error fetching establishments:", error);
             } finally {
                 setIsLoading(false);
             }
@@ -32,26 +36,26 @@ function Main() {
         fetchMeals();
     }, []);
 
-    // Update filtered meals when category changes
+    // Update filtered establishments when category changes
     useEffect(() => {
         if (selectedCategory === "All") {
-            setFilteredMeals(meals);
+            setFilteredEstablishments(establishments);
         } else {
-            setFilteredMeals(meals.filter((meal) => meal.category === selectedCategory));
+            setFilteredEstablishments(establishments.filter((establishment) => establishment.category === selectedCategory));
         }
-    }, [meals, selectedCategory]);
+    }, [establishments, selectedCategory]);
 
     // Handlers
     const handleCategoryClick = useCallback((category) => {
         setSelectedCategory(category);
     }, []);
 
-    const handleCardClick = useCallback((meal) => {
-        setSelectedMeal(meal);
+    const handleCardClick = useCallback((establishment) => {
+        setSelectedEstablishment(establishment);
     }, []);
 
     const handleCloseDetails = useCallback(() => {
-        setSelectedMeal(null);
+        setSelectedEstablishment(null);
     }, []);
 
     // Show loading spinner
@@ -120,27 +124,27 @@ function Main() {
                     <div className="col-12 col-md-9 col-lg-10 bg-white p-3 content-box">
                         <h5 className="fw-bold">CONTENT</h5>
                         <div className="row g-3">
-                            {filteredMeals.map((meal) => (
+                            {filteredEstablishments.map((establishment) => (
                                 <div
-                                    key={meal.id}
+                                    key={establishment.id}
                                     className="col-12 col-md-6 col-lg-3"
-                                    onClick={() => handleCardClick(meal)}
+                                    onClick={() => handleCardClick(establishment)}
                                 >
                                     <div className="card h-100">
                                         <div className="card-body">
-                                            <h5 className="card-title">{meal.title}</h5>
-                                            <p className="card-text">{meal.description}</p>
+                                            <h5 className="card-title">{establishment.title}</h5>
+                                            <p className="card-text">{establishment.description}</p>
                                             <p className="card-text">
                                                 <small className="text-muted">
-                                                    Restaurant: {meal.restaurant}
+                                                    Restaurant: {establishment.restaurant}
                                                 </small>
                                             </p>
                                             <p className="card-text">
                                                 <small className="text-muted">
-                                                    Distance: {meal.distance}
+                                                    Distance: {establishment.distance}
                                                 </small>
                                             </p>
-                                            <p className="card-text text-end fw-bold">{meal.price}</p>
+                                            <p className="card-text text-end fw-bold">{establishment.price}</p>
                                         </div>
                                     </div>
                                 </div>
@@ -150,11 +154,11 @@ function Main() {
                 </div>
 
                 {/* Details Popup */}
-                {selectedMeal && (
+                {selectedEstablishment && (
                     <div className="content mt-4">
                         <div className="content-overlay" onClick={handleCloseDetails}></div>
                         <div className="content-popup">
-                            <Detail meal={selectedMeal} onClose={handleCloseDetails} />
+                            <Detail accNumber={accNumber} establishment={selectedEstablishment} onClose={handleCloseDetails} />
                         </div>
                     </div>
                 )}
