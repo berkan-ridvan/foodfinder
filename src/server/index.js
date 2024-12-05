@@ -1,10 +1,20 @@
 import mysql from 'mysql'
+import bcrypt from 'bcrypt'
 import { Hono } from 'hono'
 import { cors } from 'hono/cors';
 import { serve } from '@hono/node-server'
 
 // Constants
 const app = new Hono()
+const sqlInjectionPatterns = [
+    /(\b(select|union|insert|drop|delete|update|alter|create|exec|truncate|declare|commit)\b)/i, // SQL keywords
+    /(\b(or|and)\s+[0-9]+\s*=\s*[0-9]+\b)/i,  // Logical injection (e.g., ' OR 1=1 --)
+    /(\b--\s*|\b#\s*|\b;\s*|\b'\s*--)/i, // Commenting tricks or semicolons
+    /(\b(\w+)\s*=\s*['"]?\w+['"]?;?)/i, // Query termination or additional queries
+    /\b(union|select)\b.*\bfrom\b.*\b--/i, // UNION SELECT technique
+    /(\b(select|union|insert|drop|delete)\s+.*\s*from\s+\w+\b)/i, // Selecting data from a table
+];
+const saltRounds = 10;
 
 const establishmentsConnection = mysql.createConnection({
   host: "localhost",
@@ -16,14 +26,43 @@ const establishmentsConnection = mysql.createConnection({
 // Variables
 let estabs = [];
 
+function isSQLInjectionAttempt(input) {
+  // Check the input for any of the patterns
+  for (let pattern of sqlInjectionPatterns) {
+      if (pattern.test(input)) {
+          return true; // SQL Injection detected
+      }
+  }
+
+  return false; // No SQL Injection detected
+}
+
+async function hashPassword(password) {
+  try {
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    return hashedPassword;
+  } catch (error) {
+    console.error("Error hashing password:", error);
+  }
+}
+
+async function verifyPassword(password, hashedPassword) {
+  try {
+    const match = await bcrypt.compare(password, hashedPassword);
+    return match;
+  } catch (error) {
+    console.error("Error comparing password:", error);
+  }
+}
+
 // Accepts 2 strings as a paramater, returns a boolean
 function attemptLogin(user, pass) {
   return new Promise((resolve, reject) => {
     let userData = undefined
     establishmentsConnection.query(
-      `SELECT username, password, accNumber FROM account WHERE userName = ? and password = ?`,
-      [user, pass],
-      function(err, result) {
+      `SELECT username, password, accNumber FROM account WHERE userName = ?`,
+      [user],
+      async function(err, result) {
         if (err) {
           console.log("got nothing")
           reject(err);
@@ -36,9 +75,12 @@ function attemptLogin(user, pass) {
           return;
         }
 
-        const data = result[0];
-        if (data.username == user && data.password == pass) {
-          userData = {accNumber: data.accNumber};
+        for (let i = 0; i < result.length; i++) {
+          let data = result[i];
+          let passwordsMatch = await verifyPassword(data.password, pass);
+          if (data.username == user && passwordsMatch) {
+            userData = {accNumber: data.accNumber};
+          }
         }
 
         resolve(userData);
@@ -133,8 +175,17 @@ establishmentsConnection.connect(function(err) {
 app.use('/*', cors())
 
 app.post('/posts/loginUser', async (c) => {
-    const body = await c.req.json()
-    let result = await attemptLogin(body.user, body.pass)
+    const body = await c.req.json();
+    // Check for SQL Injection
+    if (isSQLInjectionAttempt(body.user) || isSQLInjectionAttempt(body.pass)) {
+      return c.json({result: false});
+    }
+
+    let hashedPassword = await hashPassword(body.pass);
+    // let isPasswordCorrect = await verifyPassword(body.pass, hashedPassword);
+    // console.log(isPasswordCorrect);
+
+    let result = await attemptLogin(body.user, hashedPassword)
     if (result != null) {
       return c.json({result: true, user: body.user, accNumber: result.accNumber})
     } else {
@@ -142,6 +193,18 @@ app.post('/posts/loginUser', async (c) => {
     }
   }
 )
+
+app.post('/api/postReview', async (a) => {
+  const body = await a.req.json();
+  // Check for SQL Injection
+  if (isSQLInjectionAttempt(body.id) || isSQLInjectionAttempt(body.acc) || isSQLInjectionAttempt(body.comment) || isSQLInjectionAttempt(body.rating)) {
+    return c.json({result: false});
+  }
+  
+  postReview(body.id, body.acc, body.comment, body.rating);
+  return a.json({result: true});
+})
+
 app.post('/api/getReviews', async (e) => {
   const body = await e.req.json();
   let results = await getReviewsForEstablishment(body.title);
@@ -150,12 +213,6 @@ app.post('/api/getReviews', async (e) => {
   } else {
     return e.json({result: false});
   }
-})
-
-app.post('/api/postReview', async (a) => {
-  const body = await a.req.json();
-  postReview(body.id, body.acc, body.comment, body.rating);
-  return a.json({result: true});
 })
 
 // Grabs the menus for the users when they hit the landing page

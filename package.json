@@ -13,6 +13,8 @@
   },
   "dependencies": {
     "@hono/node-server": "^1.13.7",
+    "bcrypt": "^5.1.1",
+    "bootstrap": "^5.3.3",
     "hono": "^4.6.9",
     "mysql": "^2.18.1",
     "node": "^23.2.0",

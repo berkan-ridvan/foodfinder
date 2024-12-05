@@ -3,11 +3,13 @@ import "./index.scss";
 import logo from "../../assets/logo-white.png";
 import Detail from "../detailPage/detailPage"; // Ensure this is a valid import
 import { useLocation } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 
 function Main() {
     const url = "http://localhost:8787";
     const [selectedEstablishment, setSelectedEstablishment] = useState(null);
-    const [selectedCategory, setSelectedCategory] = useState("American"); // Default category
+    const [selectedCategory, setSelectedCategory] = useState("All"); // Default category
     const [establishments, setEstablishments] = useState([]);
     const [filteredEstablishments, setFilteredEstablishments] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -15,7 +17,7 @@ function Main() {
     const location = useLocation();
     const accNumber = location.state?.accNumber;
 
-    const categories = ["All", "Breakfast", "Coffee", "Burgers", "Pizza", "Mexican", "Seafood", "American", "Bar"];
+    const categories = ["All", "Mexican", "American", "Bar", "Tea", "Vietnamese", "Chinese", "Bakery", "Southern", "Deli", "Soul Food", "Food Truck"];
 
     // Fetch establishments on component load
     useEffect(() => {
@@ -69,31 +71,71 @@ function Main() {
             <header>
                 <nav className="navbar navbar-expand-lg">
                     <div className="container-fluid header-navbar">
-                        <a className="navbar-brand" href="#">
-                            <img
-                                className="img-fluid"
-                                style={{ maxWidth: "250px" }}
-                                src={logo}
-                                alt="Logo"
-                            />
-                        </a>
-                        <form className="d-flex justify-content-center flex-grow-1">
-                            <input
-                                type="search"
-                                className="form-control rounded-pill"
-                                placeholder="Search..."
-                                aria-label="Search"
-                                style={{ maxWidth: "500px" }}
-                            />
-                        </form>
-                        <button className="btn color btn-outline-primary m-1 ms-auto" type="button">
-                            Login
-                        </button>
-                        <button className="btn color btn-outline-primary m-1 ms-auto" type="button">
-                            Sign Up
-                        </button>
+                    <a className="navbar-brand" href="#">
+                        <img
+                        className="img-fluid"
+                        style={{ maxWidth: "250px" }}
+                        src={logo}
+                        alt="Logo"
+                        />
+                    </a>
+                    <form className="d-flex justify-content-center flex-grow-1">
+                        <input
+                        type="search"
+                        className="form-control rounded-pill"
+                        placeholder="Search..."
+                        style={{ maxWidth: "500px", border: "1px solid grey" }}
+                        />
+                    </form>
+                    <button
+                        className="btn color btn-outline-primary m-1 ms-auto"
+                        type="button"
+                        data-bs-toggle="modal"
+                        data-bs-target="#profileModal"
+                    >
+                        Profile
+                    </button>
                     </div>
                 </nav>
+
+                {/* Modal */}
+                <div
+                    className="modal fade"
+                    id="profileModal"
+                    tabIndex="-1"
+                    aria-labelledby="profileModalLabel"
+                    aria-hidden="true"
+                >
+                    <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                        <h5 className="modal-title" id="profileModalLabel">
+                            Profile Information
+                        </h5>
+                        <button
+                            type="button"
+                            className="btn-close"
+                            data-bs-dismiss="modal"
+                            aria-label="Close"
+                        ></button>
+                        </div>
+                        <div className="modal-body">
+                        <p><strong>Name:</strong> John Doe</p>
+                        <p><strong>Email:</strong> johndoe@example.com</p>
+                        <p><strong>Role:</strong> User</p>
+                        </div>
+                        <div className="modal-footer">
+                        <button
+                            type="button"
+                            className="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                        >
+                            Close
+                        </button>
+                        </div>
+                    </div>
+                    </div>
+                </div>
             </header>
 
             <hr className="hr" />
