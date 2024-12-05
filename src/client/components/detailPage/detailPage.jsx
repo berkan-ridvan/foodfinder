@@ -112,23 +112,7 @@ function Detail({ accNumber, establishment, onClose }) {
                   alt={establishment.title}
                   className="img-fluid rounded"
                   style={{ maxWidth: "300px" }}
-                />
-                <div className="img-info">
-                  <p>
-                    {establishment.description}
-                  </p>
-                  {/* Display Menu */}
-                  <p>
-                    <strong>Menu:</strong>
-                  </p>
-                  {/* <ul>
-                    {establishment.menu.map((item, index) => (
-                      <li key={index}>
-                        {item.item} - {item.price}
-                      </li>
-                    ))} */}
-                  {/* </ul> */}
-                </div>
+                />               
               </div>
 
               {/* Right side: Details */}
@@ -149,14 +133,6 @@ function Detail({ accNumber, establishment, onClose }) {
                 <p>
                   <strong>Address:</strong> {establishment.address}
                 </p>
-
-                {/* <ul>
-                  {Object.entries(meal.hours).map(([day, time], index) => (
-                    <li key={index}>
-                      <strong>{day.charAt(0).toUpperCase() + day.slice(1)}:</strong> {time}
-                    </li>
-                  ))}
-                </ul> */}
 
                 {/* Exit Button */}
                 <button

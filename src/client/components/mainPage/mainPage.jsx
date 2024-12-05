@@ -175,10 +175,9 @@ function Main() {
                                     <div className="card h-100">
                                         <div className="card-body">
                                             <h5 className="card-title">{establishment.title}</h5>
-                                            <p className="card-text">{establishment.description}</p>
                                             <p className="card-text">
                                                 <small className="text-muted">
-                                                    Restaurant: {establishment.restaurant}
+                                                    - {establishment.category}
                                                 </small>
                                             </p>
                                             <p className="card-text">
